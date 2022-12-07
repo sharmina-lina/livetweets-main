@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <title>Real Time app</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-10.mx-auto.mt-5">
+                <canvas id="myChart" width="400" height="200"></canvas>
+                
+            </div> 
+        </div>
+    </div>
+    <script>
+    
+    const ctx = document.getElementById('myChart').getContext('2d');
+var graphData = {
+    type: 'bubble',
+    data: {
+    datasets: [{
+    label: 'First Dataset',
+    data: [
+        { x: 20, products: {y: 30, link: 'https://www.google.com'}, r: 15 }, 
+        { x: 40, products: {y: 10, link: 'https://www.amazon.com'}, r: 10 },
+        { x: 27, products: {y: 17, link: 'https://www.yahoo.com'},  r: 25}
+    ],
+    backgroundColor: 'rgb(255, 99, 132)'
+  }]},
+
+  options: {
+    
+    parsing: {
+        xAxisKey:'x',
+        yAxisKey:'products.y',
+        radius: 'r'
+    },
+    onClick: (e, i) => {
+            console.log('clicked');
+            if(i.length){
+                const firstPoint = i[0];
+                const value = myChart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
+                console.log(value.products.link);
+                window.open(value.products.link);
+                
+            }
+            
+            
+            
+            
+            
+        }
+
+  }
+}
+ 
+const myChart = new Chart(ctx,graphData );
+
+
+    </script>
+</body>
+</html>
+
